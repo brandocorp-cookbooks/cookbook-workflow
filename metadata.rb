@@ -1,0 +1,7 @@
+name 'cookbook-workflow'
+maintainer 'Apollo Education Group, Inc.'
+maintainer_email 'automation@apollo.edu'
+license 'Apache 2.0'
+description 'Installs/Configures cookbook-workflow'
+long_description 'Installs/Configures cookbook-workflow'
+version '0.1.0'
