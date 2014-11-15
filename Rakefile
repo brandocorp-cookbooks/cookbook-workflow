@@ -9,7 +9,7 @@ namespace :test do
     require 'kitchen/rake_tasks'
     Kitchen::RakeTasks.new
   rescue
-    puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
+    puts 'Unable to load Test Kitchen' unless ENV['CI']
   end
 
   begin
@@ -20,7 +20,7 @@ namespace :test do
       t.options = { fail_tags: %w(correctness services libraries deprecated) }
     end
   rescue LoadError
-    warn 'Foodcritic Is missing ZOMG'
+    warn 'Unable to load Foodcritic' unless ENV['CI']
   end
 
   begin
@@ -31,7 +31,7 @@ namespace :test do
       task.options = %w(-D -a)
     end
   rescue LoadError
-    warn 'Rubocop gem not installed, now the code will look like crap!'
+    warn 'Unable to load RuboCop' unless ENV['CI']
   end
 
   RSpec::Core::RakeTask.new(:spec) do |t|
@@ -39,14 +39,68 @@ namespace :test do
     t.rspec_opts = '--color -f d --fail-fast'
   end
 
+  desc 'runs quick unit tests'
   task :unit do
-    Rake::Task['test:rubocop']
-    Rake::Task['test:foodcritic']
-    Rake::Task['test:spec']
+    Rake::Task['test:rubocop'].invoke
+    puts 'Running Foodcritic...'
+    Rake::Task['test:foodcritic'].invoke
+    puts 'Running RSpec...'
+    Rake::Task['test:spec'].invoke
   end
 
+  desc 'runs full test-kitchen suite'
   task :integration do
-    Rake::Task['test:kitchen:all']
+    Rake::Task['test:kitchen:all'].invoke
+  end
+
+end
+
+namespace :release do
+
+  desc 'Uploads the cookbook to the Chef Server'
+  task :upload do
+    metadata = Chef::Cookbook::Metadata.new
+    metadata.from_file('metadata.rb')
+    path = File.expand_path('..', File.dirname(__FILE__))
+    Chef::Knife.run(['cookbook', 'upload', metadata.name, '-o', path])
+  end
+
+  namespace :promote do
+
+    desc 'Promotes the cookbook to the development environment'
+    task :development do
+      metadata = Chef::Cookbook::Metadata.new
+      metadata.from_file('metadata.rb')
+      environment = Chef::Environment.load('development')
+      environment.cookbook_versions[metadata.name] = "<= #{metadata.version}"
+      environment.save
+    end
+
+    desc 'Promotes the cookbook to the systemtest environment'
+    task :systemtest do
+      metadata = Chef::Cookbook::Metadata.new
+      metadata.from_file('metadata.rb')
+      environment = Chef::Environment.load('systemtest')
+      environment.cookbook_versions[metadata.name] = "<= #{metadata.version}"
+      environment.save
+    end
+
+    desc 'Promotes the cookbook to the production environment'
+    task :production do
+      metadata = Chef::Cookbook::Metadata.new
+      metadata.from_file('metadata.rb')
+      environment = Chef::Environment.load('production')
+      environment.cookbook_versions[metadata.name] = "<= #{metadata.version}"
+      environment.save
+    end
+
+    desc 'Promotes the cookbook to all environments'
+    task :all do
+      Rake::Task['release:promote:development'].invoke
+      Rake::Task['release:promote:systemtest'].invoke
+      Rake::Task['release:promote:production'].invoke
+    end
+
   end
 
 end
