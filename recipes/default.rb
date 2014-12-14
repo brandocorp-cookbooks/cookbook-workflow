@@ -17,8 +17,14 @@
 # limitations under the License.
 #
 
-ruby_block 'reload client config' do
-  block do
-    Chef::Log.info("Ohai, #{node['fqdn']}")
-  end
+node.set['workflow']['user'] = 'workflow'
+
+directory '/opt/workflow' do
+  owner 'root'
+  group 'root'
+  mode  '0755'
+end
+
+user node['workflow']['user'] do
+  supports :managed_home => true
 end
