@@ -45,6 +45,7 @@ a.out
 
 # Testing #
 ###########
+.jenkins
 .watchr
 .rspec
 spec/*
