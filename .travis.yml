@@ -1,0 +1,8 @@
+language: ruby
+env:
+  - CHEF_VERSION=12.0.3
+  - CHEF_VERSION=11.16.4
+  - CHEF_VERSION=10.34.6
+rvm:
+  - 1.9.3
+  - 2.1.5
