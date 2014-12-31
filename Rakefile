@@ -4,7 +4,6 @@ require 'rspec/core/rake_task'
 task default: 'test:unit'
 
 namespace :test do
-
   begin
     require 'kitchen/rake_tasks'
     Kitchen::RakeTasks.new
@@ -15,7 +14,6 @@ namespace :test do
   begin
     require 'foodcritic/rake_task'
     require 'foodcritic'
-    task default: [:foodcritic]
     FoodCritic::Rake::LintTask.new do |t|
       t.options = { fail_tags: %w(correctness services libraries deprecated) }
     end
@@ -35,18 +33,13 @@ namespace :test do
   end
 
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = Dir.glob('**/*_spec.rb')
+    t.pattern = Dir.glob('spec/**/*_spec.rb')
     t.rspec_opts = '--color -f d --fail-fast'
   end
 
-  task :unit do
-    Rake::Task['test:rubocop']
-    Rake::Task['test:foodcritic']
-    Rake::Task['test:spec']
-  end
+  desc 'run unit tests'
+  task unit: ['test:rubocop', 'test:foodcritic', 'test:spec']
 
-  task :integration do
-    Rake::Task['test:kitchen:all']
-  end
-
+  desc 'run integration tests'
+  task integration: ['test:kitchen:all']
 end
