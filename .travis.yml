@@ -5,7 +5,6 @@ rvm:
 gemfile:
   - gemfiles/chef-12.0.3
   - gemfiles/chef-11.16.4
-  - gemfiles/chef-10.34.6
 matrix:
   exclude:
     - rvm: 1.9.3
