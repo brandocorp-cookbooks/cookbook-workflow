@@ -1,41 +1,22 @@
 # cookbook-workflow-cookbook
 
-TODO: Enter the cookbook description here.
+This cookbook and it's repository serve as a sandbox for testing cookbook workflows.
 
-## Supported Platforms
+## Assumptions
 
-TODO: List your supported platforms.
+I'm going to assume that the project will use:
 
-## Attributes
-
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['cookbook-workflow']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
-
-## Usage
-
-### cookbook-workflow::default
-
-Include `cookbook-workflow` in your node's `run_list`:
-
-```json
-{
-  "run_list": [
-    "recipe[cookbook-workflow::default]"
-  ]
-}
-```
+ - Github
+ - Git Flow
+ - Repository per Cookbook Strategy
+ - Jenkins CI
+ - Berkshelf
+ - RuboCop
+ - Food Critic
+ - ChefSpec
+ - Test Kitchen
+ - Serverspec
+ - Docker
 
 ## Contributing
 
@@ -48,4 +29,4 @@ Include `cookbook-workflow` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: Apollo Education Group, Inc. (<automation@apollo.edu>)
+Author:: Brandon Raabe (<brandocorp@gmail.com>)
