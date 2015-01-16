@@ -22,9 +22,9 @@ node.set['workflow']['user'] = 'workflow'
 directory '/opt/workflow' do
   owner 'root'
   group 'root'
-  mode  '0755'
+  mode '0755'
 end
 
 user node['workflow']['user'] do
-  supports :managed_home => true
+  supports managed_home: true
 end
