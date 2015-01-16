@@ -1,8 +1,11 @@
 language: ruby
-env:
-  - CHEF_VERSION=12.0.3
-  - CHEF_VERSION=11.16.4
-  - CHEF_VERSION=10.34.6
 rvm:
   - 1.9.3
   - 2.1.5
+gemfile:
+  - gemfiles/chef-12.0.3
+  - gemfiles/chef-11.16.4
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/chef-12.0.3
