@@ -1,12 +1,13 @@
 ---
 driver:
   name: docker
-  socket: tcp://192.168.59.103:2375
+  use_sudo: false
+  socket: <%= ENV['DOCKER_HOST'] %>
   require_chef_omnibus: false
   provision_command: curl -L https://www.opscode.com/chef/install.sh | bash
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
@@ -15,5 +16,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - 'recipe[cookbook-workflow::default]'
+      - recipe[cookbook-workflow::default]
     attributes:
