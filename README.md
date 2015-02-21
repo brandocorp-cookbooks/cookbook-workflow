@@ -1,4 +1,4 @@
-# cookbook-workflow-cookbook
+# cookbook-workflow-cookbook ![build status](https://travis-ci.org/brandocorp/cookbook-workflow.svg?branch=master)
 
 This cookbook and it's repository serve as a sandbox for testing cookbook workflows.
 
