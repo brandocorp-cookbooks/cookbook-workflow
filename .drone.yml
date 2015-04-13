@@ -1,4 +1,4 @@
-image: brandocorp/chefdk:latest
+image: brandocorp/chefdk:0.4.0
 script:
   - chef exec bundle install
   - rake
