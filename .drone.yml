@@ -1,0 +1,4 @@
+image: brandocorp/chefdk
+script:
+  - chef exec bundle install
+  - rake
