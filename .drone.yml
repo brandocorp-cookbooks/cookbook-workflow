@@ -1,0 +1,10 @@
+---
+image: ruby
+script:
+  - mkdir -p /tmp/bundle
+  - sudo chown -R ubuntu:ubuntu /tmp/bundle
+  - bundle install -j 8 --path /tmp/bundle
+  - bundle exec rake
+cache:
+  - /tmp/bundle
+
