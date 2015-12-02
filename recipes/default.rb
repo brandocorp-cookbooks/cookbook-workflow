@@ -25,6 +25,8 @@ directory '/opt/workflow' do
   mode '0755'
 end
 
+group 'workflow'
+
 user node['workflow']['user'] do
   supports managed_home: true
 end
