@@ -5,10 +5,21 @@ resources:
       uri: https://github.com/brandocorp-cookbooks/cookbook-workflow.git
       branch: master
 jobs:
-  - name: unit-tests
+  - name: lint
+    plan:
+      - get: cookbook-workflow
+        trigger: true
+      - task: lint
+        file: cookbook-workflow/ci/tasks/lint.yml
+  - name: style
+    plan:
+      - get: cookbook-workflow
+        trigger: true
+      - task: style
+        file: cookbook-workflow/ci/tasks/style.yml
+  - name: unit
     plan:
       - get: cookbook-workflow
         trigger: true
       - task: unit
         file: cookbook-workflow/ci/tasks/unit.yml
-

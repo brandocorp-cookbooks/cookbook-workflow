@@ -1,5 +1,2 @@
 #!/bin/bash -e
-chef exec rubocop --lint
-chef exec foodcritic .
-chef exec rspec
-
+cd cookbook-workflow && chef exec rspec -f doc --color
