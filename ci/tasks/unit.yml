@@ -10,4 +10,4 @@ inputs:
   - name: cookbook-workflow
 
 run:
-  path: ci/scripts/unit.sh
+  path: cookbook-workflow/ci/scripts/unit.sh
