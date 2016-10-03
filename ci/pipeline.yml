@@ -21,5 +21,8 @@ jobs:
     plan:
       - get: cookbook-workflow
         trigger: true
+        passed:
+          - lint
+          - style
       - task: unit
         file: cookbook-workflow/ci/tasks/unit.yml
