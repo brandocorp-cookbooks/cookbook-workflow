@@ -1,0 +1,13 @@
+resources:
+  - name: cookbook-workflow
+    type: git
+    source:
+      uri: https://github.com/brandocorp-cookbooks/cookbook-workflow.git
+      branch: master
+jobs:
+  - name: unit-tests
+    plan:
+      - get: cookbook-workflow
+      - task: unit
+        file: cookbook-workflow/ci/tasks/unit.yml
+

@@ -1,0 +1,13 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: brandocorp/chefdk
+    tag: latest
+
+inputs:
+  - name: cookbook-workflow
+
+run:
+  path: ci/scripts/unit.sh
