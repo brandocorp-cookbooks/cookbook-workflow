@@ -8,6 +8,7 @@ jobs:
   - name: unit-tests
     plan:
       - get: cookbook-workflow
+        trigger: true
       - task: unit
         file: cookbook-workflow/ci/tasks/unit.yml
 
