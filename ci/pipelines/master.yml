@@ -4,22 +4,39 @@ resources:
     source:
       uri: https://github.com/brandocorp-cookbooks/cookbook-workflow.git
       branch: master
+  - name: 15m-periodic
+    type: time
+    source:
+      interval: 15m
+  - name: cookbook-apt
+    type: http-api
+    source:
+      uri: http://supermarket.chef.io/api/v1/cookbooks/apt
+
 jobs:
   - name: lint
     plan:
       - get: cookbook-workflow
         trigger: true
+      - get: cookbook-apt
+        trigger: true
+      - get: 15m-periodic
       - task: lint
         file: cookbook-workflow/ci/tasks/lint.yml
   - name: style
     plan:
       - get: cookbook-workflow
         trigger: true
+      - get: cookbook-apt
+        trigger: true
+      - get: 15m-periodic
       - task: style
         file: cookbook-workflow/ci/tasks/style.yml
   - name: unit
     plan:
       - get: cookbook-workflow
+        trigger: true
+        get: cookbook-apt
         trigger: true
         passed:
           - lint
