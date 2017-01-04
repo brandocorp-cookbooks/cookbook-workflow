@@ -12,6 +12,7 @@ resources:
       type: supermarket
       uri: https://supermarket.chef.io
       name: apt
+      constraint: ~> 4.0.0
   - name: cookbook-workflow
     type: git
     source:
@@ -42,10 +43,19 @@ jobs:
         file: cookbook-workflow/ci/tasks/unit.yml
   - name: func
     plan:
+      - get: cookbook-workflow
+        trigger: true
+        passed:
+          - unit
+      - task: func
+        file: cookbook-workflow/ci/tasks/func.yml
+  - name: berks-update
+    plan:
       - aggregate:
         - get: cookbook-apt
           trigger: true
         - get: cookbook-workflow
           trigger: true
-      - task: func
-        file: cookbook-workflow/ci/tasks/func.yml
+      - task: berks-update
+        file: cookbook-workflow/ci/tasks/berks_update.yml
+
