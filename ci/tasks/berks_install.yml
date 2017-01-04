@@ -10,5 +10,5 @@ inputs:
   - name: cookbook-workflow
 
 run:
-  path: cookbook-workflow/ci/scripts/berks_update.sh
+  path: cookbook-workflow/ci/scripts/berks_install.sh
 
