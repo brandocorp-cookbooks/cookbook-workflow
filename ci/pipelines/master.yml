@@ -49,13 +49,13 @@ jobs:
           - unit
       - task: func
         file: cookbook-workflow/ci/tasks/func.yml
-  - name: berks-update
+  - name: berks-install
     plan:
       - aggregate:
         - get: cookbook-apt
           trigger: true
         - get: cookbook-workflow
           trigger: true
-      - task: berks-update
-        file: cookbook-workflow/ci/tasks/berks_update.yml
+      - task: berks-install
+        file: cookbook-workflow/ci/tasks/berks_install.yml
 
