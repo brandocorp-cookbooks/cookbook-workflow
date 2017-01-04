@@ -1,45 +1,51 @@
+resource_types:
+  - name: supermarket-cookbook
+    type: docker-image
+    source:
+      repository: brandocorp/supermarket-cookbook-resource
+      tag: latest
+
 resources:
+  - name: cookbook-apt
+    type: supermarket-cookbook
+    source:
+      type: supermarket
+      uri: https://supermarket.chef.io
+      name: apt
   - name: cookbook-workflow
     type: git
     source:
       uri: https://github.com/brandocorp-cookbooks/cookbook-workflow.git
       branch: master
-  - name: 15m-periodic
-    type: time
-    source:
-      interval: 15m
-  - name: cookbook-apt
-    type: http-api
-    source:
-      uri: http://supermarket.chef.io/api/v1/cookbooks/apt
 
 jobs:
   - name: lint
     plan:
       - get: cookbook-workflow
         trigger: true
-      - get: cookbook-apt
-        trigger: true
-      - get: 15m-periodic
       - task: lint
         file: cookbook-workflow/ci/tasks/lint.yml
   - name: style
     plan:
       - get: cookbook-workflow
         trigger: true
-      - get: cookbook-apt
-        trigger: true
-      - get: 15m-periodic
       - task: style
         file: cookbook-workflow/ci/tasks/style.yml
   - name: unit
     plan:
       - get: cookbook-workflow
         trigger: true
-        get: cookbook-apt
-        trigger: true
         passed:
           - lint
           - style
       - task: unit
         file: cookbook-workflow/ci/tasks/unit.yml
+  - name: func
+    plan:
+      - aggregate:
+        - get: cookbook-apt
+          trigger: true
+        - get: cookbook-workflow
+          trigger: true
+      - task: func
+        file: cookbook-workflow/ci/tasks/func.yml
