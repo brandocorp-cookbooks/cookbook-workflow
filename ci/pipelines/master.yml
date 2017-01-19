@@ -4,20 +4,89 @@ resource_types:
     source:
       repository: brandocorp/supermarket-cookbook-resource
       tag: latest
+  - name: ubuntu-xenial-package
+    type: docker-image
+    source:
+      repository: brandocorp/ubuntu-xenial-package
+      tag: latest
 
 resources:
-  - name: cookbook-apt
-    type: supermarket-cookbook
+  - name: sudo-version
+    type: ubuntu-xenial-package
     source:
-      type: supermarket
-      uri: https://supermarket.chef.io
-      name: apt
-      constraint: ~> 4.0.0
+      package: sudo
+  - name: cron-1h
+    type: time
+    source:
+      interval: 1h
+  - name: version
+    type: semver
+    source:
+      driver: git
+      uri: git@github.com:brandocorp-cookbooks/cookbook-workflow.git
+      branch: master
+      file: version
+      private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpQIBAAKCAQEA55heTZ8bibOsMk1h/tMtorgwdM5jGcQDuo92+vIfHwuaG0Ul
+        RhXSzeWZcR+meqI3A7VTC/itI8rg5WVVWSCZKoWBxC9kafvByLrp6Pn/A7wYgfRC
+        OiD0ZFMQcYi5Wht2pLDZ4DsDmsP8lnYJhPtxWMfl/u9JioOkHuiPNpxU6NLBAvKy
+        7zek2VkXt8I2MtrdLLa+lYbSCmDSEnIdNJ5cbNnOtXBdR9M0BmY+WBddTntmEQb2
+        1NL67RB0AW4EO6YXVDSc+WOJaEaEs5L28MzDOaAJmA9oID+7+plkCdKHy0P6KCA5
+        bWYhlkPkL4zGw1z0eUQcqVd2bTAd58TZYBK81wIDAQABAoIBAAKVTX/6JVl82o/Z
+        Ex2/h0PIYCn9X1ebOxtqnD4iUzyKaZaiR88nUSmgxPxhCP9XLdvputpoVK4Qhj+o
+        yLHsziiOQqtIiAsylq/BffhuSWzmPTO94Ls7QN6ZmpZZmw+pPMKLgnKg1eJ1Cy02
+        dda440PFPwh/7McRvtPlbiuCxOOv6K6kjxJXsD+YtCIQ4YzVUWj/2Zq3nL9X1G+B
+        /xHLTu88/vj091wk2aEv0paGAqmi1w7wUBRIcfol7r2/RJfYmTzwAhiFEtX7v6fB
+        1zL1SOaGRs7WHjqZZcc+bLlj1NrQCXvdp92mysP9jvxytVXarvzGNljAwFpHegWV
+        Njf5q7kCgYEA9MOEo6Xo7LsgcBBD9uIEf1JxAleaYfxa9YneELKp0oS41C80q8v0
+        o3nH4ftjwb0H2mwnwaQQ2Z+nG6n9UcIIMxlMlLujoB6NwvJNPyxDoNeABIYoggf0
+        crUy6xA/6m6qO3j0KglVlB/Vcpu2ZXeAm1cvPpJ50XggJNDRTqgQ1gUCgYEA8joX
+        qLX0gm/V/eKsQjerNMR39BN5DraeoOFhESI3hdzyU9faOazTFlCTO6v9FengkPl9
+        2C1sPRxqFZCFPXdyyW0/7Ao1zk1eh8tBLjUh34+W+R+V+oF8iG8A7JuF6+6sjVbf
+        G+QCZfcxhCLUASShkbS/YAcSfQXumRzSsS0DwisCgYEAr7wJaa3fVMjt+0fSZFnW
+        vMumU/Yt5BhZ/l0kUXzVrU6Znc7e1FI1rYHsX3YtI5bjIpHw4Xk4l+enBZfBR4g2
+        dum9MDSgwH/vbH6ns6nGTJ8tTRI910561jj+/ALIwTr/gn/PXrcg+J76k7T0+lkY
+        v2+TfiuQxzKmcYh0HzNQEzkCgYEA5lcpwmxs/FC/LLQN3NY1P3OJIhgWaVBt3k0U
+        Uge4xtoJsoMz6N6YyMKMkBUIEXua6iHmctkW8bIAi0sn+QCKrlLuk1ZOPkVCnF1D
+        OV6bPI2+Il7P7yyNMOxl85odKvOHMMyoU0xqn24Gr0GzWvbrkbRQvE9dXHh0oTNQ
+        g91rkosCgYEArKg8qanCHUSeL6g0OdRlTVdd9riPWbBBj7kSuPtJn6j22HpYkRYE
+        ZAPO9jfpl/F2orZycH+7PBAXK0AWXCQNbD2HziKDjCNivb5rBzA1slbJacPr7Yy5
+        Ir9SS3yAuC9zQE7g2A2yjEnUNeUndj7drbCd5z39ht8XaCXUVwWy9O4=
+        -----END RSA PRIVATE KEY-----
   - name: cookbook-workflow
     type: git
     source:
-      uri: https://github.com/brandocorp-cookbooks/cookbook-workflow.git
+      uri: git@github.com:brandocorp-cookbooks/cookbook-workflow.git
       branch: master
+      private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpQIBAAKCAQEA55heTZ8bibOsMk1h/tMtorgwdM5jGcQDuo92+vIfHwuaG0Ul
+        RhXSzeWZcR+meqI3A7VTC/itI8rg5WVVWSCZKoWBxC9kafvByLrp6Pn/A7wYgfRC
+        OiD0ZFMQcYi5Wht2pLDZ4DsDmsP8lnYJhPtxWMfl/u9JioOkHuiPNpxU6NLBAvKy
+        7zek2VkXt8I2MtrdLLa+lYbSCmDSEnIdNJ5cbNnOtXBdR9M0BmY+WBddTntmEQb2
+        1NL67RB0AW4EO6YXVDSc+WOJaEaEs5L28MzDOaAJmA9oID+7+plkCdKHy0P6KCA5
+        bWYhlkPkL4zGw1z0eUQcqVd2bTAd58TZYBK81wIDAQABAoIBAAKVTX/6JVl82o/Z
+        Ex2/h0PIYCn9X1ebOxtqnD4iUzyKaZaiR88nUSmgxPxhCP9XLdvputpoVK4Qhj+o
+        yLHsziiOQqtIiAsylq/BffhuSWzmPTO94Ls7QN6ZmpZZmw+pPMKLgnKg1eJ1Cy02
+        dda440PFPwh/7McRvtPlbiuCxOOv6K6kjxJXsD+YtCIQ4YzVUWj/2Zq3nL9X1G+B
+        /xHLTu88/vj091wk2aEv0paGAqmi1w7wUBRIcfol7r2/RJfYmTzwAhiFEtX7v6fB
+        1zL1SOaGRs7WHjqZZcc+bLlj1NrQCXvdp92mysP9jvxytVXarvzGNljAwFpHegWV
+        Njf5q7kCgYEA9MOEo6Xo7LsgcBBD9uIEf1JxAleaYfxa9YneELKp0oS41C80q8v0
+        o3nH4ftjwb0H2mwnwaQQ2Z+nG6n9UcIIMxlMlLujoB6NwvJNPyxDoNeABIYoggf0
+        crUy6xA/6m6qO3j0KglVlB/Vcpu2ZXeAm1cvPpJ50XggJNDRTqgQ1gUCgYEA8joX
+        qLX0gm/V/eKsQjerNMR39BN5DraeoOFhESI3hdzyU9faOazTFlCTO6v9FengkPl9
+        2C1sPRxqFZCFPXdyyW0/7Ao1zk1eh8tBLjUh34+W+R+V+oF8iG8A7JuF6+6sjVbf
+        G+QCZfcxhCLUASShkbS/YAcSfQXumRzSsS0DwisCgYEAr7wJaa3fVMjt+0fSZFnW
+        vMumU/Yt5BhZ/l0kUXzVrU6Znc7e1FI1rYHsX3YtI5bjIpHw4Xk4l+enBZfBR4g2
+        dum9MDSgwH/vbH6ns6nGTJ8tTRI910561jj+/ALIwTr/gn/PXrcg+J76k7T0+lkY
+        v2+TfiuQxzKmcYh0HzNQEzkCgYEA5lcpwmxs/FC/LLQN3NY1P3OJIhgWaVBt3k0U
+        Uge4xtoJsoMz6N6YyMKMkBUIEXua6iHmctkW8bIAi0sn+QCKrlLuk1ZOPkVCnF1D
+        OV6bPI2+Il7P7yyNMOxl85odKvOHMMyoU0xqn24Gr0GzWvbrkbRQvE9dXHh0oTNQ
+        g91rkosCgYEArKg8qanCHUSeL6g0OdRlTVdd9riPWbBBj7kSuPtJn6j22HpYkRYE
+        ZAPO9jfpl/F2orZycH+7PBAXK0AWXCQNbD2HziKDjCNivb5rBzA1slbJacPr7Yy5
+        Ir9SS3yAuC9zQE7g2A2yjEnUNeUndj7drbCd5z39ht8XaCXUVwWy9O4=
+        -----END RSA PRIVATE KEY-----
 
 jobs:
   - name: lint
@@ -36,13 +105,14 @@ jobs:
     plan:
       - get: cookbook-workflow
         trigger: true
-        passed:
-          - lint
-          - style
       - task: unit
         file: cookbook-workflow/ci/tasks/unit.yml
   - name: func
     plan:
+      - get: sudo-version
+        trigger: true
+        params:
+          attribute: cookbook-workflow/sudo/version
       - get: cookbook-workflow
         trigger: true
         passed:
@@ -51,11 +121,24 @@ jobs:
         file: cookbook-workflow/ci/tasks/func.yml
   - name: berks-install
     plan:
-      - aggregate:
-        - get: cookbook-apt
-          trigger: true
-        - get: cookbook-workflow
-          trigger: true
+      - get: cron-1h
+        trigger: true
+      - get: cookbook-workflow
+        trigger: true
       - task: berks-install
         file: cookbook-workflow/ci/tasks/berks_install.yml
-
+  - name: bump-patch
+    plan:
+      - put: version
+        params:
+          bump: patch
+  - name: bump-minor
+    plan:
+      - put: version
+        params:
+          bump: minor
+  - name: bump-major
+    plan:
+      - put: version
+        params:
+          bump: major
