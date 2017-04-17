@@ -1,9 +1,13 @@
 require_relative 'spec_helper'
 
 describe file('/opt/workflow') do
-  it { should be_directory }
+  it { is_expected.to be_directory }
 end
 
 describe user('workflow') do
-  it { should exist }
+  it { is_expected.to exist }
+end
+
+describe group('workflow') do
+  it { is_expected.to exist }
 end

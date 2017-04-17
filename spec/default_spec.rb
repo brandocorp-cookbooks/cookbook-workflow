@@ -10,4 +10,8 @@ describe 'cookbook-workflow::default' do
   it 'creates the workflow user' do
     expect(chef_run).to create_user('workflow')
   end
+
+  it 'creates the workflow group' do
+    expect(chef_run).to create_group('workflow')
+  end
 end
