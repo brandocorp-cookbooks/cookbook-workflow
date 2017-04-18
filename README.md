@@ -9,7 +9,6 @@ I'm going to assume that the project will use:
  - Github
  - Git Flow
  - Repository per Cookbook Strategy
- - Jenkins CI
  - Berkshelf
  - RuboCop
  - Food Critic
